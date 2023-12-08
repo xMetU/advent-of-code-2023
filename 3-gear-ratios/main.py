@@ -13,16 +13,19 @@ def main() -> None:
             if char in "@#$%&*-+=/":
                 position_symbol_map[(index // 141, index % 141)] = char
         part_one_total = 0
+        gear_position_adjacent_numbers_map = {k: [] for k, v in position_symbol_map.items() if v == "*"}
         for position, number in position_number_map.items():
+            is_part_number = False
             for r in range(position[0] - 1, position[0] + 2):
                 for c in range(position[1] - 1, position[1] + len(number) + 1):
                     if (r, c) in position_symbol_map:
-                        part_one_total += int(number)
-                        break
-                else:
-                    continue
-                break
+                        is_part_number = True
+                    if (r, c) in gear_position_adjacent_numbers_map:
+                        gear_position_adjacent_numbers_map[(r, c)].append(int(number))
+            if is_part_number:
+                part_one_total += int(number)
         print("Part One:", part_one_total)
+        print("Part Two:", sum(nums[0] * nums[1] for nums in gear_position_adjacent_numbers_map.values() if len(nums) > 1))
 
 
 if __name__ == "__main__":
