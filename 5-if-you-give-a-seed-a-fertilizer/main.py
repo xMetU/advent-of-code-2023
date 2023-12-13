@@ -33,7 +33,7 @@ def get_location_range(seed: tuple[int, int]) -> int:
         if new_ranges:
             ranges = new_ranges
     return min(st for st, _ in ranges)
-    
+
 
 print("Part One", min(get_location_single(seed) for seed in seeds))
 print("Part Two", min(get_location_range((seeds[i], seeds[i] + seeds[i + 1])) for i in range(len(seeds) - 1)))
